@@ -1,0 +1,28 @@
+{% extends 'first/base.html' %}
+{% block title %} Patient Details {% endblock %}
+
+{% block body %}
+
+{% if user.is_authenticated %}
+<h2>Name: {{patient.Firstname}}</h2>
+<h2>Age: {{patient.Age}}</h2>
+<h2>Hospital ID: {{patient.Hospital_id}}</h2>
+<ol>
+    {% if patient.document_set.all %}
+        {% for document in patient.document_set.all %}
+    <li> <h3><u>{{document.Document_type}}</u></h3> <br> <img src = "{{document.Document_image.url}}" height="1000" width="1000"/> </li>
+        {% endfor %}
+
+    {% else %}
+    <h3>No Documents Found</h3>
+
+    {% endif %}
+</ol>
+
+{% else %}
+    <h2>Please Login to Access the records</h2>
+{% endif %}
+
+
+
+{% endblock %}

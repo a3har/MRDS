@@ -1,0 +1,159 @@
+{% extends 'first/base.html' %}
+{% block title %}Home {% endblock %}
+
+{% block body %}
+<html>
+<head>
+<style>
+{% load static %}
+/*center content*/
+section.content {
+    overflow:hidden;
+    position:relative;
+    width:960px;
+    background:transparent url(../images/cbg.png) repeat-x scroll center top;
+    -moz-border-radius:15px;
+    -webkit-border-radius:15px;
+    border-radius:15px;
+    margin:0 auto;
+}
+.content .column {
+    float:left;
+    width:605px;
+    padding:0 23px 7px 28px;
+}
+.content .sidebar {
+    float:right;
+    width:350px;
+    border-left:1px solid #444;
+    padding:0 10px 7px 25px;
+}
+.post {
+    overflow:hidden;
+    padding-bottom:13px;
+}
+.post .title {
+    overflow:hidden;
+    padding-top:5px;
+    width:100%;
+}
+.post .title .date {
+    background:url("../images/date-bg.png") no-repeat scroll left top transparent;
+    color:#444;
+    float:left;
+    font-size:1.167em;
+    font-weight:400;
+    line-height:1em;
+    margin-right:16px;
+    text-align:center;
+    width:69px;
+    padding:5px 0 8px;
+}
+.title .date span {
+    display:block;
+    font-size:2.357em;
+    line-height:1em;
+}
+.post .title h2 {
+    color:#FFFFFF;
+    font-size:2.5em;
+    font-weight:400;
+    line-height:1.01em;
+    text-transform:none;
+    padding:15px 0 0;
+}
+.post .title h2 a {
+    color:#C7B8A3;
+    text-decoration:none;
+}
+.post .title h2 a:hover {
+    text-decoration:underline;
+}
+.post .text-box {
+    font-size:1.29em;
+    line-height:1.35em;
+    overflow:hidden;
+    padding-top:10px;
+    padding-bottom:10px;
+    width:100%;
+}
+.post .text-box img {
+    margin:10px 0px;
+}
+.post .comments {
+    color:#FFFFFF;
+    font-size:1.083em;
+    line-height:1em;
+    overflow:hidden;
+    text-transform:none;
+    padding:0 0 16px;
+}
+.sidebar .block {
+    color:#FFFFFF
+    width:80%
+    padding:144px 0 144px;
+}
+.sidebar .block h2 {
+    font-size:2.5em;
+    margin:10px 0;
+}
+.sidebar ul {
+    width:100%;
+}
+.sidebar li {
+    color:#FFFFFF;
+    font-size:1.083em;
+    font-weight:700;
+    line-height:1.146em;
+    padding:4px 0 5px;
+}
+.sidebar li a {
+    color:#C7B8A3;
+    text-decoration:none;
+}
+
+</style>
+
+</head>
+<body>
+
+
+<img src="{% static 'first/images/rajagiri.png' %}" float:left alt="Rajagiri" />
+{% if user.is_authenticated %}
+<h3>&emsp;Welcome {{request.user.first_name}} {{request.user.last_name}}  </h3>
+
+
+{% endif %}
+<section class="content"><!-- Defining the main content section of the page -->
+    <!-- navigation menu -->
+
+    <div class="clear"></div>
+    <div class="column">
+        <div class="post">
+            <div class="title">
+                <div class="date"><span></span></div>
+                <h2><a href="#" title="post 1">Rajagiri Hospital</a></h2>
+            </div>
+            <div class="text-box">
+                <p><img src="{% static 'first/images/bannerRajagiri.jpg'  %}" height="400" width="600" alt="Rajagiri" ><br><br/> Rajagiri Hospital is an ambitious initiative from the renowned Rajagiri (CMI) group of institutions based in the pristine State of Kerala (India) to provide state of the art healthcare services.
+</p>
+<p> This mega project is indeed a thoughtful response to the vital needs of the present day health care sector, mainly that of offering quality and affordable medical care at the hands of committed and competent health care professionals. The idea is to bring the highest standards of expertise and skill involved in the treatment of patients, using the most advanced and sophisticated instrument techniques available currently in the world and to bring the benefit of these at affordable rates to the common man.</p>
+<p><img alt="" src="images/post.png"><br>The new Rajagiri campus for ‘Rajagiri Healthcare and Education Project’ will be a well laid out, sprawling 40-acre green landscape in the serene setting of Chunangamvely, Alwaye, in close proximity to the Cochin International Airport. The master plan of this world class holistic healthcare complex envisages a state-of-the-art Multi-specialty hospital, Medical College, Dental College, Nursing College,College of Paramedical Sciences and College of Pharmacy, Home for Senior Citizens, Centers for Alternative Medicines, Various Hostels, and Quarters, etc.</p>
+
+		</div>
+        </div>
+</div>
+</div>
+
+
+
+
+
+    <div class="clear"></div>
+</section>
+
+
+</body>
+</html>
+
+{% endblock %}

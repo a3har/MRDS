@@ -1,0 +1,18 @@
+{% extends 'first/base.html' %}
+{% block title %} Patient Details {% endblock %}
+
+{% block body %}
+
+{% if user.is_authenticated %}
+<h3>Name: {{patient.Firstname}}</h3>
+<h3>Age: {{patient.Age}}</h3>
+<h3>Hospital ID: {{patient.Hospital_id}}</h3>
+<h3><strong> Document Type: <u> {{document.Document_type}} </u> </strong></h3>
+<br/>
+<img src = "{{document.Document_image.url}}" height="1000" width="1000"/>
+
+{% else %}
+    <h2>Please Login to Access the records</h2>
+{% endif %}
+
+{% endblock %}

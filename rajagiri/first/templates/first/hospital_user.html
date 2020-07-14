@@ -1,0 +1,44 @@
+{% extends 'first/base.html' %}
+{% block title %}Details{% endblock %}
+
+
+{% block body %}
+
+{% if user.is_authenticated %}
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-sm-12 col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Welcome {{request.user.first_name}} {{request.user.last_name}} </h3> <br/><br/>
+                    <h3><u>Details</u></h3>    <br/>
+                    <h4>First Name : {{request.user.first_name}} </h4> <br/>
+                    <h4>Last Name : {{request.user.last_name}} </h4> <br/>
+                    <h4>Email ID : {{request.user.email}} </h4> <br/>
+                    {% if not request.user.is_staff %}
+                        <h4> Designation : Staff </h4>
+
+
+                    {% elif request.user.is_superuser %}
+                        <h4> Designation : Admin </h4>
+
+
+                    {% elif request.user.is_staff %}
+                        <h4> Designation : Doctor </h4>
+
+                    {% endif %}
+
+
+                    <br/>
+                    <a href="{% url 'first:change_password'%}">
+                    <button type="submit" class="btn btn-success">Change Password</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

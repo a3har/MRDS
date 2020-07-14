@@ -1,0 +1,152 @@
+{% extends 'first/base1.html' %}
+
+{% block title %} Python Code {% endblock %}
+
+{% block body %}
+
+<head>
+<style>
+table, td, th {
+  border: 1px solid black;
+}
+
+#table1 {
+  border-collapse: collapse;
+  border-spacing: 15px;
+  width:100%
+  colour: #d96459;
+  font-family: monospace;
+  font-size: 20px;
+  text-align: center;
+}
+
+#list  p {
+	border-collapse: collapse;
+ 	 border-spacing: 15px;
+    font-family: monospace;
+    font-size: 20px;
+    background-color: #7FFFD4 ;
+}
+
+
+th{
+    text-align: center;
+    background-color: #ED145A;
+    color: white;
+}
+
+
+</style>
+</head>
+
+
+<form action ="{% url 'first:python' %}" method = "post" >
+
+    {% csrf_token %}
+<!--
+    {% for document in patient.document_set.all %}
+         {{ document.Document_image.url }}
+    {% endfor %}
+-->
+    Patient ID :
+    <input type="text" name="param" required value=" {{patient.id}}">  <br/>
+    {{data_external}} <br/><br/>
+
+    <!-- {{myresult}} -->
+    <input type="submit" class="btn btn-success" value="Generate Document">
+     <br/><br/>
+
+    <h4> <u>Patient Details</u> </h4> <br/>
+    <h4> Age: {{age}} </h4>
+    <h4> Gender: {{gender}} </h4> <br/>
+
+    <table id="table1">
+
+        <tr align="right">
+            <th>Patient_ID</th>
+            <th>Test_Name</th>
+            <th align="right">Test_Parameter</th>
+            <th>Value</th>
+            <th>Unit</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Original_Range</th>
+            <th>Conditions</th>
+            <th>Remarks</th>
+            <th>Path</th>
+
+        </tr>
+
+    {% for value in myresult %}
+        {% if value.8 == "Normal" %}
+        <tr>
+
+                <td>    {{ value.0 }}   </td>
+                <td>    {{ value.1 }}   </td>
+                <td>    {{ value.2 }}   </td>
+                <td>    {{ value.3 }}   </td>
+                <td>    {{ value.4 }}   </td>
+                <td>    {{ value.5 }}   </td>
+                <td>    {{ value.6 }}   </td>
+                <td>    {{ value.7 }}   </td>
+                <td>    {{ value.8 }}   </td>
+                <td>    {{ value.9 }}   </td>
+            <td>   <a href="{{ value.10 }}" target="_blank"> See Report </a> </td>
+        </tr>
+
+         {% elif value.8 == "Abnormal"%}
+            <tr bgcolor="#ffff4d">
+
+                <td>    {{ value.0 }}   </td>
+                <td>    {{ value.1 }}   </td>
+                <td>    {{ value.2 }}   </td>
+                <td>    {{ value.3 }}   </td>
+                <td>    {{ value.4 }}   </td>
+                <td>    {{ value.5 }}   </td>
+                <td>    {{ value.6 }}   </td>
+                <td>    {{ value.7 }}   </td>
+                <td>    {{ value.8 }}   </td>
+                <td>    {{ value.9 }}   </td>
+                <td>   <a href="{{ value.10 }}" target="_blank"> See Report </a> </td>
+             </tr>
+
+            {% else %}
+                <tr bgcolor="#80dfff">
+
+                <td>    {{ value.0 }}   </td>
+                <td>    {{ value.1 }}   </td>
+                <td>    {{ value.2 }}   </td>
+                <td>    {{ value.3 }}   </td>
+                <td>    {{ value.4 }}   </td>
+                <td>    {{ value.5 }}   </td>
+                <td>    {{ value.6 }}   </td>
+                <td>    {{ value.7 }}   </td>
+                <td>    {{ value.8 }}   </td>
+                <td>    {{ value.9 }}   </td>
+                <td>   <a href="{{ value.10 }}" target="_blank"> See Report </a> </td>
+                 </tr>
+
+
+         {% endif %}
+
+    {% endfor %}
+
+    </table>
+
+    <p>&nbsp;</p>
+	<h4>DESCRIPTIONS IN PATIENT'S REPORT</h4>
+	<p>&nbsp;</p>
+
+	<div id="list">
+  		 <!-- <p><iframe {{file_content}} frameborder="10" height="600"
+      	width="100%"> </iframe></p> -->
+      <p>{{file_content}}</p>
+</div>
+
+</form>
+
+
+
+
+
+{% endblock %}

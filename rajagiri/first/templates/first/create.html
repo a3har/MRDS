@@ -1,0 +1,12 @@
+{% extends 'first/base.html'  %}
+
+{% block title %} Add a Document {% endblock %}
+
+{% block body %}
+Add New Document
+<form method="post" action="{% url 'first:home' %}">
+    {% csrf_token %}
+    {{form}}
+    <button type="submit", name="Add Record">Add Record </button>
+</form>
+{% endblock %}

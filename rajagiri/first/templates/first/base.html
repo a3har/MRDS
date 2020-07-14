@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Medical Record Documentation System{% endblock %}</title>
+    {% load static %}
+    <link rel="shortcut icon" type="image/png" href="{%  static 'favicon.ico' %}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'first/style.css' %}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <script src="{% static 'music/js/main.js' %}"></script>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+
+        <!-- Header -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand"  href="{% url 'first:home' %}"><span class="glyphicon glyphicon-home " aria-hidden="true"></span>  Medical Record Documentation System </a>
+        </div>
+
+        <!-- Items -->
+        <div class="collapse navbar-collapse" id="topNavBar">
+            <ul class="nav navbar-nav">
+                <li class="{% block albums_active %}{% endblock %}"><a href="{% url 'first:index' %}"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>&nbsp; Dashboard</a></li>
+
+            </ul>
+            <form class="navbar-form navbar-left" role="search" method="get" action="{% url 'first:search' %}">
+                <div class="form-group">
+                    <input type="search" class="form-control" placeholder="Enter Hospital ID" name="search" value="{{ request.GET.q }}">
+                </div>
+                <button type="submit" class="btn btn-default">Search</button>
+            </form>
+
+            {% if user.is_authenticated %}
+                <ul class="nav navbar-nav navbar-right">
+                    {% if request.user.is_superuser %}
+                        <li><a href="{% url 'first:hospital_user'%}"><span class="glyphicon glyphicon-user"></span> Admin. {{request.user.first_name}} {{request.user.last_name}}</a></li>
+                    {% elif request.user.is_staff %}
+                         <li><a href="{% url 'first:hospital_user'%}"><span class="glyphicon glyphicon-user"></span> Doctor. {{request.user.first_name}} {{request.user.last_name}}</a></li>
+                    {% else %}
+                         <li><a href="{% url 'first:hospital_user'%}"><span class="glyphicon glyphicon-user"></span> Staff. {{request.user.first_name}} {{request.user.last_name}}</a></li>
+                    {% endif%}
+
+                <li><a href="{% url 'first:logout_user'%}""><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                </ul>
+
+            {% else %}
+                <ul class="nav navbar-nav navbar-right">
+
+                <li><a href="{% url 'first:login'%}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+
+
+            {% endif %}
+
+            {% if not request.user.is_staff or request.user.is_superuser %}
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="{% url 'first:create' %}">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Document
+                    </a>
+                </li>
+            </ul>
+
+            {% endif %}
+
+            {% if request.user.is_staff %}
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="{% url 'first:view' %}">
+                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp; View
+                    </a>
+                </li>
+            </ul>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+                    {% if request.user.is_superuser %}
+                        <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/admin" target="_blank" >
+                        <span class="glyphicon glyphicon-link" aria-hidden="true"></span>&nbsp; Admin Site
+                    </a>
+                </li>
+            </ul>
+                    {% endif %}
+
+            {% endif %}
+
+
+        </div>
+
+    </div>
+</nav>
+{% block body %}
+{% endblock %}
+</body>
+</html>

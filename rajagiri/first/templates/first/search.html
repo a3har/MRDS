@@ -1,0 +1,60 @@
+{% extends 'first/base.html' %}
+
+{% block body %}
+
+{% if user.is_authenticated %}
+
+{% if patients %}
+{% for patient in patients %}
+
+<div class="row">
+        <div class="col-sm-12">
+
+            <h3> <strong> <u>{{patient.Hospital_id}} - {{patient.Firstname}}'s Document </u> </strong> </h3>
+            {% if request.user.is_superuser or request.user.is_staff %}
+                 <a href="{% url 'first:python' patient.id%}" class="btn btn-success" role="button">Generate Document</a> <br/>
+            {% endif %}
+        </div>
+        {% if patient.document_set.all %}
+            {% for document in patient.document_set.all %}
+                <div class="col-sm-4 col-lg-2">
+                    <div class="thumbnail">
+                        <a href="{% url 'first:record' patient.id %}">
+                            <img src="{{ Document.document_image }}" class="img-responsive">
+                        </a>
+                        <div class="caption">
+                            <h2>{{ document.Document_type }}</h2>
+                            <h4>{{ document.Hospital_id }}</h4>
+
+                            <!-- View Details -->
+                            <a href="{% url 'first:record' patient.id document.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
+
+                            <form action="{% url 'first:delete_document' patient.id document.id %}" method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="document_id" value="{{ document.id }}" />
+                                        <button type="submit" class="btn btn-danger btn-xs">
+                                            <span class="glyphicon glyphicon-remove"></span>&nbsp; Delete
+                                        </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+</div>
+
+
+{% endfor %}
+
+{% else %}
+    <h3>No Patient Found. <br/> <br/>Kindly verify the Hospital ID of the Patient </h3>
+
+{% endif %}
+
+{% else %}
+     <h2>Please Login to Access the records</h2>
+
+{% endif %}
+
+
+{% endblock %}
