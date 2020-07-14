@@ -1,4 +1,4 @@
-django==3.0.3
+django==3.0.7
 mysql==0.0.2
 botocore==1.15.31
 docutils==0.15.2
@@ -15,3 +15,4 @@ python-dateutil==2.8.1
 requests==2.21.0
 scipy==1.4.1
 xlrd
+requests==2.21.0
